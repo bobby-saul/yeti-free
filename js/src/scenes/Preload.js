@@ -6,7 +6,10 @@ class Preload extends Phaser.Scene{
 	}
 
 	preload(){
-		this.load.image('yeti', 'assets/Yeti.png');
+		this.load.spritesheet('yeti', 'assets/yeti-sprite.png', {
+			frameWidth: 32,
+			frameHeight: 32 
+		});
 	}
 
 	create(){
