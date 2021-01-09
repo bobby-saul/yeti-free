@@ -1,10 +1,12 @@
 import Phaser from 'phaser'
 
-const frameRate = 10;
+const frameRate = 16;
+const windowWidth = window.innerWidth * window.devicePixelRatio;
+const windowHeight = window.innerHeight * window.devicePixelRatio;
 
-class Game extends Phaser.Scene{
+class Game extends Phaser.Scene {
 	constructor(){
-		super('game')
+		super('game');
 	}
 
 	preload(){
@@ -22,7 +24,9 @@ class Game extends Phaser.Scene{
 	}
 
 	create(){
-		this.yeti = this.physics.add.sprite(500, 250, 'yeti');
+		this.cameras.main.setBackgroundColor('#F4F4F2');
+		this.yeti = this.physics.add.sprite(windowWidth / 2, windowHeight / 2, 'yeti');
+		this.cameras.main.startFollow(this.yeti, true);
 
 		this.anims.create({
 			key: 'yeti-front-idle',
