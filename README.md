@@ -12,7 +12,7 @@ For developing run ```npm i``` to install the proper node packages. The scripts 
 
 This project contains the index.html file to load the js built by webpack from the source javascript located in js/src/index.js and placed in js/dist/index.js. The webpack build uses the babel loader for more browser support.
 
-## Colors
+### Colors
 
 - white #F4F4F2
 - light grey #E8E8E8
@@ -24,14 +24,14 @@ This project contains the index.html file to load the js built by webpack from t
 - brown #725E54
 - light blue #B8CFF5
 
-## ToDo
+### ToDo
 
 For Beta
 - [x] add yeti
 - [x] add yeti movement
 - [x] add background
 - [x] camera follow yeti
-- [ ] add obstacles
+- [x] add obstacles
     - [x] trees
     - [x] rocks
     - [x] ice
@@ -44,9 +44,12 @@ For Beta
 - [ ] add score
 - [ ] add eating animation
 - [ ] add slip/trip animation
-- [ ] add sounds
-- [ ] add menu
 
 For 1.0.0
 - [ ] fine tuning game play
 - [ ] refactor code
+- [ ] add sounds
+    - [ ] sound effects (roar, scream, chewing)
+    - [ ] background music
+- [ ] add menu
+- [ ] add high score

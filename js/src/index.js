@@ -4,18 +4,8 @@ import Game from "./scenes/Game"
 
 const windowWidth = window.innerWidth * window.devicePixelRatio;
 const windowHeight = window.innerHeight * window.devicePixelRatio;
-// Since Apple devices don't work well with WebGL.
-const isIOS = [
-    'iPad Simulator',
-    'iPhone Simulator',
-    'iPod Simulator',
-    'iPad',
-    'iPhone',
-    'iPod'
-].includes(navigator.platform) || navigator.userAgent.includes("Mac");
-
 const config = {
-    type: isIOS ? Phaser.CANVAS : Phaser.AUTO,
+    type: Phaser.CANVAS,
     title: 'Yeti Free',
     url: 'https://bobby-saul.itch.io/yeti-free',
     version: '1.0-ALPHA',
