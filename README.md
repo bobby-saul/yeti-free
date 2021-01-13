@@ -36,7 +36,7 @@ For Beta
     - [x] rocks
     - [x] ice
     - [x] snowman
-    - [ ] place randomly on map
+    - [x] place randomly on map
 - [ ] add skiers
     - [x] make sprite
     - [ ] add object
