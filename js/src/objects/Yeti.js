@@ -11,11 +11,9 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 	
 	fall() {
 		this.setVelocity(0);
-		console.log('yeti fall');
 	}
 
 	eat(skier) {
-		console.log("eating skier");
 		skier.destroy();
 	}
     

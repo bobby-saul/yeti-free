@@ -39,7 +39,9 @@ For Beta
     - [x] place randomly on map
 - [ ] add skiers
     - [x] make sprite
-    - [ ] add object
+    - [x] add object
+    - [ ] move randomly
+    - [ ] avoid objects
 - [ ] add health bar
 - [ ] add score
 - [ ] add eating animation

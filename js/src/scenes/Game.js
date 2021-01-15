@@ -11,6 +11,7 @@ const gameSize = [2000, 2000];
 class Game extends Phaser.Scene {
 	constructor() {
 		super('game');
+		this.gameSize = gameSize;
 	}
 
 	preload() {
@@ -35,11 +36,11 @@ class Game extends Phaser.Scene {
 		this.cameras.main.setBackgroundColor('#F4F4F2');
 		this.cameras.main.startFollow(this.yeti, true);
 		// Ground Objects
-		this.groundObjects = new GroundGroup(this.physics.world, this, gameSize);
+		this.groundObjects = new GroundGroup(this.physics.world, this);
 		// Boundaries
-		const boundaries = new Boundaries(this.physics.world, this, gameSize);
+		const boundaries = new Boundaries(this.physics.world, this);
 		// Skiers
-		this.skiers = new SkierGroup(this.physics.world, this);
+		this.skiers = new SkierGroup(this.physics.world, this, 5);
 		skierAnims(this.anims);
 		// Collisions
 		this.physics.add.collider(this.yeti, this.skiers, this.eatSkier);
