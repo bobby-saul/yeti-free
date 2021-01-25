@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import HealthBar from './HealthBar';
+import ScoreBoard from './ScoreBoard';
 
 class Yeti extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
@@ -11,6 +12,7 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 		this.health = 1000;
 		this.score = 0;
 		this.healthBar = new HealthBar(this.scene);
+		this.scoreboard = new ScoreBoard(this.scene);
 	}
 	
 	fall() {
@@ -99,6 +101,7 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 			this.setVelocity(0, 0);
 		}
 		this.updateHealth();
+		this.scoreboard.update();
 	}
 }
 

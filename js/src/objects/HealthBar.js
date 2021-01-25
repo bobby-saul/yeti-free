@@ -1,6 +1,6 @@
-import Phaser from 'phaser'
 const width = 50;
 const height = 10;
+const heightOffset = 24;
 
 class HealthBar {
     constructor(scene) {
@@ -17,16 +17,16 @@ class HealthBar {
     
     update() {
         var x = this.scene.yeti.body.x + (window.innerWidth * window.devicePixelRatio / 2) - width;
-        var y = this.scene.yeti.body.y - (window.innerHeight * window.devicePixelRatio / 2) + height;
+        var y = this.scene.yeti.body.y - (window.innerHeight * window.devicePixelRatio / 2) + height + heightOffset;
         // OutLine
         this.outline.x = x;
         this.outline.y = y;
         // Bar
         this.bar.clear();
-        if (this.scene.yeti.health > 600) {
+        if (this.scene.yeti.health > 666) {
             this.bar.fillStyle(0x17B890, 1.0);
-        } else if (this.scene.yeti.health > 300) {
-            this.bar.fillStyle(0xD96C06, 1.0);
+        } else if (this.scene.yeti.health > 333) {
+            this.bar.fillStyle(0xFA7921, 1.0);
         } else {
             this.bar.fillStyle(0xAD2F45, 1.0);
         }

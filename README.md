@@ -43,7 +43,7 @@ For Beta
     - [x] move randomly
     - [x] avoid objects
 - [x] add health bar
-- [ ] add score
+- [x] add score
 - [ ] add eating animation
 - [ ] add slip/trip animation
 
