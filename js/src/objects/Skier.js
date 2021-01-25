@@ -9,7 +9,6 @@ const skierTypes = [
     'skier2',
 ];
 
-
 class Skier extends Phaser.Physics.Arcade.Sprite {
     constructor(scene) {
         // Get random starting position
@@ -27,34 +26,85 @@ class Skier extends Phaser.Physics.Arcade.Sprite {
         // Sizing
         this.body.width = 20;
         this.body.height = 12;
-        this.body.offset.x = 6;
         this.body.offset.y = 20;
         this.setDepth(this.body.y - 12);
+        this.updateDisplay();
         // Custom use
         this.skierType = skierType;
         this.speed = Phaser.Math.Between(minSpeed, maxSpeed);
-        this.interval = Phaser.Math.Between(minInterval, maxInterval);
-	}
+        this.speedInterval = Phaser.Math.Between(minInterval, maxInterval);
+        this.direction = Phaser.Math.Between(-1, 1);
+        this.directionInterval = Phaser.Math.Between(minInterval, maxInterval);
+    }
     
-    update() {
-        if (this.body.y > this.scene.yeti.body.y + (window.innerHeight * window.devicePixelRatio / 2) + this.body.height) {
-            this.destroy();
-            return;
+    updateDisplay() {
+        // Left
+        if (this.direction === -1) {
+            if (this.skierType === 0) {
+                this.anims.play('skier-1-side', true);
+            } else {
+                this.anims.play('skier-2-side', true);
+            }
+            this.scaleX = -1;
+            this.body.offset.x = 26;
         }
-        if (this.interval < 1) {
-            this.speed = Phaser.Math.Between(minSpeed, maxSpeed);
-            this.interval = Phaser.Math.Between(minInterval, maxInterval);
+        // Right
+        else if (this.direction === 1) {
+            if (this.skierType === 0) {
+                this.anims.play('skier-1-side', true);
+            } else {
+                this.anims.play('skier-2-side', true);
+            }
+            this.scaleX = 1;
+            this.body.offset.x = 6;
+        }
+        // Center
+        else {
             if (this.skierType === 1) {
                 if (this.speed < 120) {
                     this.anims.play('skier-2-front-pizza', true);
                 } else {
                     this.anims.play('skier-2-front', true);
                 }
+            } else {
+                this.anims.play('skier-1-front', true);
             }
-        } else {
-            this.interval = this.interval -1;
+            this.scaleX = 1;
+            this.body.offset.x = 6;
         }
-        this.setVelocity(0, this.speed);
+    }
+    
+    update() {
+        // If skier off screen
+        if (this.body.y > this.scene.yeti.body.y + (window.innerHeight * window.devicePixelRatio / 2) + this.body.height) {
+            this.destroy();
+            return;
+        }
+        // Change speed
+        if (this.speedInterval < 1) {
+            this.speed = Phaser.Math.Between(minSpeed, maxSpeed);
+            this.speedInterval = Phaser.Math.Between(minInterval, maxInterval);
+            this.updateDisplay();
+        } else {
+            this.speedInterval = this.speedInterval -1;
+        }
+        // Change direction
+        if (this.directionInterval < 1) {
+            this.direction = Phaser.Math.Between(-1, 1);
+            this.directionInterval = Phaser.Math.Between(minInterval, maxInterval);
+            this.updateDisplay();
+        } else {
+            this.directionInterval = this.directionInterval - 1;
+        }
+        // Update velocity
+        var directionalSpeed = Math.sqrt(Math.pow(this.speed, 2) / 2);
+        if (this.direction === -1) {
+            this.setVelocity(-directionalSpeed, directionalSpeed);
+        } else if (this.direction === 1) {
+            this.setVelocity(directionalSpeed, directionalSpeed);
+        } else {
+            this.setVelocity(0, this.speed);
+        }
         this.setDepth(this.body.y - 12);
     }
 }

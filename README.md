@@ -40,7 +40,7 @@ For Beta
 - [ ] add skiers
     - [x] make sprite
     - [x] add object
-    - [ ] move randomly
+    - [x] move randomly
     - [ ] avoid objects
 - [ ] add health bar
 - [ ] add score
