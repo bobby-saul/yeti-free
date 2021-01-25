@@ -1,0 +1,40 @@
+import Phaser from 'phaser'
+const width = 50;
+const height = 10;
+
+class HealthBar {
+    constructor(scene) {
+        this.scene = scene;
+        // Outline
+        this.outline = this.scene.add.graphics();
+        this.outline.lineStyle(1, 0x495464, 1.0);
+        this.outline.strokeRect(0, 0, width, height);
+        // Bar
+        this.bar = this.scene.add.graphics();
+        this.bar.fillStyle(0x17B890, 1.0);
+        this.bar.fillRect(0, 0, width, height);
+    }
+    
+    update() {
+        var x = this.scene.yeti.body.x + (window.innerWidth * window.devicePixelRatio / 2) - width;
+        var y = this.scene.yeti.body.y - (window.innerHeight * window.devicePixelRatio / 2) + height;
+        // OutLine
+        this.outline.x = x;
+        this.outline.y = y;
+        // Bar
+        this.bar.clear();
+        if (this.scene.yeti.health > 600) {
+            this.bar.fillStyle(0x17B890, 1.0);
+        } else if (this.scene.yeti.health > 300) {
+            this.bar.fillStyle(0xD96C06, 1.0);
+        } else {
+            this.bar.fillStyle(0xAD2F45, 1.0);
+        }
+        this.bar.fillRect(0, 0, width, height);
+        this.bar.x = x;
+        this.bar.y = y;
+        this.bar.scaleX = this.scene.yeti.health / 1000;
+    }
+}
+
+export default HealthBar;

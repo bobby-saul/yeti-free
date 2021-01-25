@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import HealthBar from './HealthBar';
 
 class Yeti extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
@@ -7,6 +8,9 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
         this.body.height = 6;
 		this.body.offset.y = 26;
+		this.health = 1000;
+		this.score = 0;
+		this.healthBar = new HealthBar(this.scene);
 	}
 	
 	fall() {
@@ -15,6 +19,17 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 
 	eat(skier) {
 		skier.destroy();
+		this.score += 100;
+		this.health = Math.min((this.health + 100), 1000);
+	}
+
+	updateHealth() {
+		if (this.health < 1) {
+			// game over
+		} else {
+			this.health = this.health - 0.5;
+		}
+		this.healthBar.update();
 	}
     
     update(cursors) {
@@ -83,6 +98,7 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 			this.anims.play(idleAnim.join("-"));
 			this.setVelocity(0, 0);
 		}
+		this.updateHealth();
 	}
 }
 
