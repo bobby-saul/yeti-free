@@ -37,11 +37,11 @@ For Beta
     - [x] ice
     - [x] snowman
     - [x] place randomly on map
-- [ ] add skiers
+- [x] add skiers
     - [x] make sprite
     - [x] add object
     - [x] move randomly
-    - [ ] avoid objects
+    - [x] avoid objects
 - [ ] add health bar
 - [ ] add score
 - [ ] add eating animation

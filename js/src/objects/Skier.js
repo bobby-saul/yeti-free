@@ -28,13 +28,13 @@ class Skier extends Phaser.Physics.Arcade.Sprite {
         this.body.height = 12;
         this.body.offset.y = 20;
         this.setDepth(this.body.y - 12);
-        this.updateDisplay();
         // Custom use
         this.skierType = skierType;
         this.speed = Phaser.Math.Between(minSpeed, maxSpeed);
         this.speedInterval = Phaser.Math.Between(minInterval, maxInterval);
         this.direction = Phaser.Math.Between(-1, 1);
         this.directionInterval = Phaser.Math.Between(minInterval, maxInterval);
+        this.updateDisplay();
     }
     
     updateDisplay() {
@@ -72,6 +72,9 @@ class Skier extends Phaser.Physics.Arcade.Sprite {
             this.scaleX = 1;
             this.body.offset.x = 6;
         }
+    }
+
+    fall () {
     }
     
     update() {

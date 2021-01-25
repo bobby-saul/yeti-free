@@ -29,8 +29,8 @@ class Game extends Phaser.Scene {
 
 	create() {
 		// Yeti
-		this.yeti = new Yeti(this, 0, 0);
 		yetiAnims(this.anims);
+		this.yeti = new Yeti(this, 0, 0);
 		this.yeti.anims.play('yeti-front-idle');
 		// Camera
 		this.cameras.main.setBackgroundColor('#F4F4F2');
@@ -40,16 +40,25 @@ class Game extends Phaser.Scene {
 		// Boundaries
 		const boundaries = new Boundaries(this.physics.world, this);
 		// Skiers
-		this.skiers = new SkierGroup(this.physics.world, this, 5);
 		skierAnims(this.anims);
+		this.skiers = new SkierGroup(this.physics.world, this, 5);
 		// Collisions
 		this.physics.add.collider(this.yeti, this.skiers, this.eatSkier);
 		this.physics.add.collider(this.yeti, this.groundObjects, this.yetiFall);
 		this.physics.add.collider(this.yeti, boundaries, this.yetiFall);
+		this.physics.add.collider(this.skiers, this.groundObjects, this.skierFall);
+		this.physics.add.collider(this.skiers, this.skiers, this.skierFall);
 	}
 
 	yetiFall (yeti) {
 		yeti.fall();
+	}
+
+	skierFall (skier1, skier2) {
+		skier1.fall();
+		if (typeof skier2.skierType === "number") {
+			skier2.fall();
+		}
 	}
 
 	eatSkier(yeti, skier) {
