@@ -44,7 +44,7 @@ For Beta
     - [x] avoid objects
 - [x] add health bar
 - [x] add score
-- [ ] add eating animation
+- [x] add eating animation
 - [ ] add slip/trip animation
 
 For 1.0.0
