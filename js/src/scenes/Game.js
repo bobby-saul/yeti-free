@@ -28,6 +28,7 @@ class Game extends Phaser.Scene {
 	}
 
 	create() {
+		this.gameOver = false;
 		// Yeti
 		yetiAnims(this.anims);
 		this.yeti = new Yeti(this, 0, 0);
@@ -46,28 +47,47 @@ class Game extends Phaser.Scene {
 		this.physics.add.collider(this.yeti, this.skiers, this.eatSkier);
 		this.physics.add.collider(this.yeti, this.groundObjects, this.yetiFall);
 		this.physics.add.collider(this.yeti, boundaries, this.yetiFall);
-		this.physics.add.collider(this.skiers, this.groundObjects, this.skierFall);
-		this.physics.add.collider(this.skiers, this.skiers, this.skierFall);
+		this.physics.add.collider(this.skiers, this.groundObjects);
+		this.physics.add.collider(this.skiers, this.skiers);
 	}
 
-	yetiFall (yeti) {
-		yeti.fall();
-	}
-
-	skierFall (skier1, skier2) {
-		skier1.fall();
-		if (typeof skier2.skierType === "number") {
-			skier2.fall();
+	yetiFall (yeti, object) {
+		if (!this.gameOver) {
+			yeti.fall(object);
 		}
 	}
 
 	eatSkier(yeti, skier) {
-		yeti.eat(skier);
+		if (!this.gameOver) {
+			yeti.eat(skier);
+		}
+	}
+
+	endGame() {
+		// Text
+		this.gameOver = true;
+		var gameOverText = this.add.text(0, 0, 'Game Over', {
+            fontSize: '36px',
+            fill: '#000',
+		});
+		var x = this.yeti.x - (gameOverText.width / 2);
+		var y = this.yeti.y - (gameOverText.height / 2);
+		gameOverText.x = x;
+		gameOverText.y = y;
+		// Yeti
+		this.yeti.setVelocity(0);
+		this.yeti.anims.play('yeti-front-idle', true);
+		// Skiers
+		this.skiers.getChildren().forEach(skier => {
+            skier.setVelocity(0);
+        });
 	}
 
 	update() {
-		this.yeti.update(this.cursors);
-		this.skiers.update();
+		if (!this.gameOver) {
+			this.yeti.update(this.cursors);
+			this.skiers.update();
+		}
 	}
 }
 

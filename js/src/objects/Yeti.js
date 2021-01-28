@@ -2,11 +2,16 @@ import Phaser from 'phaser'
 import HealthBar from './HealthBar';
 import ScoreBoard from './ScoreBoard';
 
+const eatTime = 24;
+const fallTime = 30;
+const immuneTime = 12;
+
 class Yeti extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
         super(scene, x, y, 'yeti');
         scene.add.existing(this);
-        scene.physics.add.existing(this);
+		scene.physics.add.existing(this);
+		this.setBounce(0);
         this.body.height = 6;
 		this.body.offset.y = 26;
 		this.health = 1000;
@@ -14,37 +19,52 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 		this.healthBar = new HealthBar(this.scene);
 		this.scoreboard = new ScoreBoard(this.scene);
 		this.eatWait = 0;
+		this.fallWait = 0;
+		this.immuneWait = 0;
 	}
 	
-	fall() {
-		this.setVelocity(0);
+	fall(object) {
+		if (this.eatWait < 1 && this.fallWait < 1 && this.immuneWait < 1) {
+			this.fallWait = fallTime;
+			this.setVelocity(0);
+			this.anims.play('yeti-side-fall', true);
+			if (object.x >= this.x) {
+				this.scaleX = 1;
+				this.body.offset.x = 2;
+			} else {
+				this.scaleX = -1;
+				this.body.offset.x = 28;
+			}
+		}
 	}
 
 	eat(skier) {
-		this.eatWait = 12;
-		let direction = this.anims.currentAnim.key.split('-')[1];
-		if (direction === "back") {
-			this.anims.play('yeti-back-eat-' + (skier.skierType + 1), true);
-		} else {
-			this.anims.play('yeti-front-eat-' + (skier.skierType + 1), true);
+		if (this.fallWait < 1) {
+			this.eatWait = eatTime;
+			this.setVelocity(0);
+			let direction = this.anims.currentAnim.key.split('-')[1];
+			if (direction === "back") {
+				this.anims.play('yeti-back-eat-' + (skier.skierType + 1), true);
+			} else {
+				this.anims.play('yeti-front-eat-' + (skier.skierType + 1), true);
+			}
+			if (skier.x >= this.x) {
+				this.scaleX = -1;
+				this.body.offset.x = 28;
+			} else {
+				this.scaleX = 1;
+				this.body.offset.x = 2;
+			}
+			this.body.width = 28;
+			skier.destroy();
+			this.score += 100;
+			this.health = Math.min((this.health + 100), 1000);
 		}
-		if (skier.x >= this.x) {
-			this.scaleX = -1;
-			this.body.offset.x = 28;
-		} else {
-			this.scaleX = 1;
-			this.body.offset.x = 2;
-		}
-		this.body.width = 28;
-		skier.destroy();
-		this.score += 100;
-		this.health = Math.min((this.health + 100), 1000);
-
 	}
 
 	updateHealth() {
 		if (this.health < 1) {
-			// game over
+			this.scene.endGame();
 		} else {
 			this.health = this.health - 0.5;
 		}
@@ -52,7 +72,9 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 	}
     
     update(cursors) {
-		if (this.eatWait > 0) {
+		if (this.fallWait > 0) {
+			this.fallWait = this.fallWait - 1;
+		} else if (this.eatWait > 0) {
 			this.eatWait = this.eatWait - 1;
 		} else {
 			let speed = 160;
@@ -120,6 +142,12 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 				this.anims.play(idleAnim.slice(0,3).join("-"));
 				this.setVelocity(0, 0);
 			}
+		}
+		if (this.immuneWait > 0) {
+			this.immuneWait = this.immuneWait - 1;
+		}
+		if (this.fallWait === 1) {
+			this.immuneWait = immuneTime;
 		}
 		this.updateHealth();
 		this.scoreboard.update();

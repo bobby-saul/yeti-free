@@ -45,7 +45,7 @@ For Beta
 - [x] add health bar
 - [x] add score
 - [x] add eating animation
-- [ ] add slip/trip animation
+- [x] add slip/trip animation
 
 For 1.0.0
 - [ ] fine tuning game play

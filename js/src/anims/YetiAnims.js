@@ -68,6 +68,13 @@ function yetiAnims (anims) {
         }),
         frameRate: frameRate,
     });
+    anims.create({
+        key: 'yeti-side-fall',
+        frames: anims.generateFrameNumbers('yeti', {
+            frames: [33, 34, 35, 35, 35, 35, 36, 37, 38, 6]
+        }),
+        frameRate: frameRate,
+    });
 }
 
 export default yetiAnims;
