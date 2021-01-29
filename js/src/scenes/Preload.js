@@ -42,10 +42,14 @@ class Preload extends Phaser.Scene {
 			frameWidth: 4,
 			frameHeight: 4
 		});
+		this.load.spritesheet('button', 'assets/button.png', {
+			frameWidth: 16,
+			frameHeight: 16
+		});
 	}
 
 	create() {
-		this.scene.start('game');
+		this.scene.start('title');
 	}
 }
 

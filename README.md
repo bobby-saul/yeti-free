@@ -48,10 +48,22 @@ For Beta
 - [x] add slip/trip animation
 
 For 1.0.0
-- [ ] fine tuning game play
-- [ ] refactor code
+- [ ] add start game menu
+    - [x] background music box
+    - [x] sound effects box
+    - [x] play button
+- [ ] add levels (1-10) with time limit
+    - [ ] less skiers
+    - [ ] more obstacles
+    - [ ] faster obstacles
+    - [ ] begin modal
 - [ ] add sounds
-    - [ ] sound effects (roar, scream, chewing)
-    - [ ] background music
-- [ ] add menu
+    - [ ] sound effects
+        - [x] roar
+        - [ ] scream
+        - [x] chewing
+        - [ ] footsteps
+    - [x] background music
+- [ ] add pause menu
 - [ ] add high score
+- [ ] refactor code

@@ -1,6 +1,7 @@
 import Phaser from "phaser";
-import Preload from "./scenes/Preload"
-import Game from "./scenes/Game"
+import Preload from "./scenes/Preload";
+import Title from "./scenes/Title";
+import Game from "./scenes/Game";
 
 const windowWidth = window.innerWidth * window.devicePixelRatio;
 const windowHeight = window.innerHeight * window.devicePixelRatio;
@@ -18,7 +19,7 @@ const config = {
             // debug: true
         }
     },
-    scene: [Preload, Game]
+    scene: [Preload, Title, Game]
 };
 const game = new Phaser.Game(config);
 
