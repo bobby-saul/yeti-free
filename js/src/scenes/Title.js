@@ -19,12 +19,18 @@ class Title extends Phaser.Scene {
         const width = window.innerWidth * window.devicePixelRatio / 2;
         const height = window.innerHeight * window.devicePixelRatio / 2;
         // Border
-        this.add.rectangle(width, height, width, width, 0xE8E8E8);
+        this.add.rectangle(width, height, width, Math.max(height, 250), 0xE8E8E8);
+        // Title
+        this.title = this.add.text(width, height - 2 * (36 + padding), "Yeti Free", {
+            fill: '#495464',
+            fontSize: '24px',
+        });
+        this.title.x = this.title.x - this.title.width / 2;
+        this.title.y = this.title.y - this.title.height / 2;
         // Start button
         var startButton = new Button(this, width, height - (36 + padding), "Start");
         startButton.on('pointerdown', function () {
-            this.scene.start('game');
-            this.scene.stop();
+            this.startGame();
         }, this);
         // Music checkbox
         this.music = true;
@@ -46,14 +52,23 @@ class Title extends Phaser.Scene {
         this.sfxButton = new Button(this, width  + 16, height + (16 + padding));
         this.sfxButton.on('pointerdown', this.sfxToggle, this);
         this.sfxButton.check();
+        // Sound
+        this.backgroundMusic = this.sound.add('background',{
+            loop: true
+        });
+        this.backgroundMusic.play();
+        this.chewSound = this.sound.add('chew');
+        this.roarSound = this.sound.add('roar');
     }
     
     musicToggle() {
         this.music = !this.music;
         if (this.music) {
             this.musicButton.check();
+            this.backgroundMusic.play();
         } else {
             this.musicButton.uncheck();
+            this.backgroundMusic.stop();
         }
     }
 
@@ -64,6 +79,17 @@ class Title extends Phaser.Scene {
         } else {
             this.sfxButton.uncheck();
         }
+    }
+
+    startGame() {
+        this.scene.start('game', {
+            music: this.music,
+            sfx: this.sfx,
+            backgroundMusic: this.backgroundMusic,
+            chewSound: this.chewSound,
+            roarSound: this.roarSound,
+        });
+        this.scene.stop();
     }
 }
 

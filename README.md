@@ -48,7 +48,7 @@ For Beta
 - [x] add slip/trip animation
 
 For 1.0.0
-- [ ] add start game menu
+- [x] add start game menu
     - [x] background music box
     - [x] sound effects box
     - [x] play button
@@ -66,4 +66,5 @@ For 1.0.0
     - [x] background music
 - [ ] add pause menu
 - [ ] add high score
+- [ ] add touch events
 - [ ] refactor code

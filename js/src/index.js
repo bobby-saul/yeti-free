@@ -9,7 +9,7 @@ const config = {
     type: Phaser.CANVAS,
     title: 'Yeti Free',
     url: 'https://bobby-saul.itch.io/yeti-free',
-    version: '1.0-ALPHA',
+    version: '1.0-BETA',
     width: windowWidth,
     height: windowHeight,
     physics: {

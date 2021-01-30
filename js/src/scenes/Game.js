@@ -14,6 +14,14 @@ class Game extends Phaser.Scene {
 		this.gameSize = gameSize;
 	}
 
+	init(data) {
+		this.music = data.music;
+		this.sfx = data.sfx;
+		this.backgroundMusic = data.backgroundMusic;
+		this.chewSound = data.chewSound;
+		this.roarSound = data.roarSound;
+	}
+
 	preload() {
 		this.cursors = this.input.keyboard.addKeys({
 			'up': Phaser.Input.Keyboard.KeyCodes.UP,
@@ -44,22 +52,24 @@ class Game extends Phaser.Scene {
 		skierAnims(this.anims);
 		this.skiers = new SkierGroup(this.physics.world, this, 5);
 		// Collisions
-		this.physics.add.collider(this.yeti, this.skiers, this.eatSkier);
-		this.physics.add.collider(this.yeti, this.groundObjects, this.yetiFall);
-		this.physics.add.collider(this.yeti, boundaries, this.yetiFall);
+		this.physics.add.collider(this.yeti, this.skiers, this.eatSkier, null, this);
+		this.physics.add.collider(this.yeti, this.groundObjects, this.yetiFall, null, this);
+		this.physics.add.collider(this.yeti, boundaries, this.yetiFall, null, this);
 		this.physics.add.collider(this.skiers, this.groundObjects);
 		this.physics.add.collider(this.skiers, this.skiers);
 	}
 
 	yetiFall (yeti, object) {
-		if (!this.gameOver) {
-			yeti.fall(object);
+		yeti.fall(object);
+		if (this.sfx) {
+			this.roarSound.play();
 		}
 	}
 
 	eatSkier(yeti, skier) {
-		if (!this.gameOver) {
-			yeti.eat(skier);
+		yeti.eat(skier);
+		if (this.sfx) {
+			this.chewSound.play();
 		}
 	}
 
@@ -85,8 +95,8 @@ class Game extends Phaser.Scene {
 
 	update() {
 		if (!this.gameOver) {
-			this.yeti.update(this.cursors);
 			this.skiers.update();
+			this.yeti.update(this.cursors);
 		}
 	}
 }

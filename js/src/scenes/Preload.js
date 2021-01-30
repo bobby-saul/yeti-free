@@ -46,6 +46,9 @@ class Preload extends Phaser.Scene {
 			frameWidth: 16,
 			frameHeight: 16
 		});
+		this.load.audio('background', 'sound/yeti_free.mp3');
+		this.load.audio('chew', 'sound/chew.mp3');
+		this.load.audio('roar', 'sound/roar.mp3');
 	}
 
 	create() {
