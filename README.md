@@ -26,7 +26,7 @@ This project contains the index.html file to load the js built by webpack from t
 
 ### ToDo
 
-For Beta
+Beta
 - [x] add yeti
 - [x] add yeti movement
 - [x] add background
@@ -47,11 +47,13 @@ For Beta
 - [x] add eating animation
 - [x] add slip/trip animation
 
-For 1.0.0
+Beta 2
 - [x] add start game menu
     - [x] background music box
     - [x] sound effects box
     - [x] play button
+
+Version 1.0
 - [ ] add levels (1-10) with time limit
     - [ ] less skiers
     - [ ] more obstacles
@@ -64,7 +66,18 @@ For 1.0.0
         - [x] chewing
         - [ ] footsteps
     - [x] background music
-- [ ] add pause menu
-- [ ] add high score
-- [ ] add touch events
+- [x] add pause menu
+- [ ] add game over menu
 - [ ] refactor code
+
+Version 1.1
+- [ ] add touch events for phones
+
+Version 1.2
+- [ ] add high score
+
+Version 2.0
+- [ ] Power ups
+    - [ ] rage mode (speed up + invincible)
+    - [ ] double points
+    - [ ] snowball

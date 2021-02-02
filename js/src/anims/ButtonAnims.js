@@ -11,6 +11,10 @@ function buttonAnims(anims) {
         key: 'button-checked',
         frames: [{ key: 'button', frame: 2 }],
     });
+    anims.create({
+        key: 'button-pause',
+        frames: [{ key: 'button', frame: 3 }],
+    });
 }
 
 export default buttonAnims;

@@ -4,38 +4,19 @@ import buttonAnims from '../anims/ButtonAnims';
 
 const padding = 10;
 
-class Title extends Phaser.Scene {
+class Pause extends Phaser.Scene {
 	constructor() {
-		super('title');
+		super('pause');
+    }
+    
+    init(data) {
+		this.music = data.music;
+		this.sfx = data.sfx;
 	}
 
 	preload() {
         buttonAnims(this.anims);
         this.cameras.main.setBackgroundColor('#495464');
-    }
-    
-    init(data) {
-        if (data.music) {
-            this.music = data.music;
-        } else {
-            this.music = {
-                on: true,
-                backgroundMusic: this.sound.add('background', {
-                    loop: true
-                })
-            }
-            this.music.backgroundMusic.play();
-        }
-        // Sound
-        if (data.sfx) {
-            this.sfx = data.sfx;
-        } else {
-            this.sfx = {
-                on: true,
-                chewSound: this.sound.add('chew'),
-                roarSound: this.sound.add('roar')
-            };
-        }
 	}
 
 	create() {
@@ -45,15 +26,15 @@ class Title extends Phaser.Scene {
         // Border
         this.add.rectangle(width, height, width, Math.max(height, 250), 0xE8E8E8);
         // Title
-        this.title = this.add.text(width, height - 2 * (36 + padding), "Yeti Free", {
+        this.title = this.add.text(width, height - 2 * (36 + padding), "Paused", {
             fill: '#495464',
             fontSize: '24px',
         });
         this.title.x = this.title.x - this.title.width / 2;
         this.title.y = this.title.y - this.title.height / 2;
-        // Start button
-        var startButton = new Button(this, width, height - (36 + padding), "Start");
-        startButton.on('pointerdown', function () {
+        // Resume button
+        var resumeButton = new Button(this, width, height - (36 + padding), "Resume");
+        resumeButton.on('pointerdown', function () {
             this.startGame();
         }, this);
         // Music checkbox
@@ -67,7 +48,7 @@ class Title extends Phaser.Scene {
         if (this.music.on) {
             this.musicButton.check();
         }
-        // Sound checkbox
+        // Music checkbox
         var sfxText = this.add.text(0, 0, 'Sound', {
             fill: '#495464',
         });
@@ -78,6 +59,11 @@ class Title extends Phaser.Scene {
         if (this.sfx.on) {
             this.sfxButton.check();
         }
+        // Quit button
+        var quitButton = new Button(this, width, height + (60 + padding), "Quit");
+        quitButton.on('pointerdown', function () {
+            this.quitGame();
+        }, this);
     }
     
     musicToggle() {
@@ -101,12 +87,18 @@ class Title extends Phaser.Scene {
     }
 
     startGame() {
-        this.scene.start('game', {
+        this.scene.resume('game');
+        this.scene.stop('pause');
+    }
+
+    quitGame() {
+        this.scene.stop('game');
+        this.scene.start('title', {
             music: this.music,
             sfx: this.sfx,
         });
-        this.scene.stop();
+        this.scene.stop('pause');
     }
 }
 
-export default Title;
+export default Pause;

@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import HealthBar from './HealthBar';
 import ScoreBoard from './ScoreBoard';
+import PauseButton from './PauseButton';
 
 const eatTime = 24;
 const fallTime = 30;
@@ -14,10 +15,12 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 		this.setBounce(0);
         this.body.height = 6;
 		this.body.offset.y = 26;
+		this.direction = 'front';
 		this.health = 1000;
 		this.score = 0;
-		this.healthBar = new HealthBar(this.scene);
-		this.scoreboard = new ScoreBoard(this.scene);
+		this.healthBar = new HealthBar(scene);
+		this.scoreboard = new ScoreBoard(scene);
+		this.pauseButton = new PauseButton(scene);
 		this.eatWait = 0;
 		this.fallWait = 0;
 		this.immuneWait = 0;
@@ -35,15 +38,17 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 				this.scaleX = -1;
 				this.body.offset.x = 28;
 			}
+			if (this.scene.sfx.on) {
+				this.scene.sfx.roarSound.play();
+			}
 		}
 	}
 
 	eat(skier) {
-		if (this.fallWait < 1) {
+		if (this.fallWait < 1 && this.eatWait < 1) {
 			this.eatWait = eatTime;
 			this.setVelocity(0);
-			let direction = this.anims.currentAnim.key.split('-')[1];
-			if (direction === "back") {
+			if (this.direction === "back") {
 				this.anims.play('yeti-back-eat-' + (skier.skierType + 1), true);
 			} else {
 				this.anims.play('yeti-front-eat-' + (skier.skierType + 1), true);
@@ -59,6 +64,9 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 			skier.destroy();
 			this.score += 100;
 			this.health = Math.min((this.health + 100), 1000);
+			if (this.scene.sfx.on) {
+				this.scene.sfx.chewSound.play();
+			}
 		}
 	}
 
@@ -84,6 +92,7 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 			const downDown = cursors.down.isDown || cursors.s.isDown;
 
 			if (leftDown) {
+				this.direction = 'side';
 				this.anims.play('yeti-side-walk', true);
 				this.scaleX = -1;
 				this.body.offset.x = 28;
@@ -102,6 +111,7 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 					this.setVelocity(speed * -1, 0);
 				}
 			} else if (rightDown) {
+				this.direction = 'side';
 				this.anims.play('yeti-side-walk', true);
 				this.body.offset.x = 8;
 				this.body.width = 18;
@@ -121,6 +131,7 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 				}
 			}
 			else if (upDown) {
+				this.direction = 'back';
 				this.anims.play('yeti-back-walk', true);
 				this.scaleX = 1;
 				this.body.width = 28;
@@ -129,6 +140,7 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 				this.setDepth(this.body.y - 6);
 			}
 			else if (downDown) {
+				this.direction = 'front';
 				this.anims.play('yeti-front-walk', true);
 				this.scaleX = 1;
 				this.body.offset.x = 2;
@@ -137,9 +149,7 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 				this.setDepth(this.body.y - 6);
 			}
 			else {
-				let idleAnim = this.anims.currentAnim.key.split('-');
-				idleAnim[2] = "idle";
-				this.anims.play(idleAnim.slice(0,3).join("-"));
+				this.anims.play('yeti-' + this.direction + '-idle');
 				this.setVelocity(0, 0);
 			}
 		}
@@ -151,6 +161,7 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 		}
 		this.updateHealth();
 		this.scoreboard.update();
+		this.pauseButton.update();
 	}
 }
 

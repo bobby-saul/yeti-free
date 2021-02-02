@@ -74,7 +74,15 @@ class Skier extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    fall () {
+    collision () {
+        if (this.direction === 0) {
+            if (Math.random() > .5) {
+                this.direction = -1;
+            } else {
+                this.direction = 1;
+            }
+            this.updateDisplay();
+        }
     }
     
     update() {

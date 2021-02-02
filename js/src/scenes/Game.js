@@ -17,9 +17,6 @@ class Game extends Phaser.Scene {
 	init(data) {
 		this.music = data.music;
 		this.sfx = data.sfx;
-		this.backgroundMusic = data.backgroundMusic;
-		this.chewSound = data.chewSound;
-		this.roarSound = data.roarSound;
 	}
 
 	preload() {
@@ -55,23 +52,29 @@ class Game extends Phaser.Scene {
 		this.physics.add.collider(this.yeti, this.skiers, this.eatSkier, null, this);
 		this.physics.add.collider(this.yeti, this.groundObjects, this.yetiFall, null, this);
 		this.physics.add.collider(this.yeti, boundaries, this.yetiFall, null, this);
-		this.physics.add.collider(this.skiers, this.groundObjects);
+		this.physics.add.collider(this.skiers, this.groundObjects, this.skierCollision, null, this);
 		this.physics.add.collider(this.skiers, this.skiers);
 	}
 
-	yetiFall (yeti, object) {
+	yetiFall(yeti, object) {
 		yeti.fall(object);
-		if (this.sfx) {
-			this.roarSound.play();
-		}
 	}
 
 	eatSkier(yeti, skier) {
 		yeti.eat(skier);
-		if (this.sfx) {
-			this.chewSound.play();
-		}
 	}
+
+	skierCollision(skier) {
+		skier.collision();
+	}
+
+	pauseGame() {
+        this.scene.pause();
+        this.scene.launch('pause', {
+            music: this.music,
+            sfx: this.sfx
+        });
+    }
 
 	endGame() {
 		// Text
