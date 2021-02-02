@@ -3,6 +3,7 @@ import Preload from "./scenes/Preload";
 import Title from "./scenes/Title";
 import Game from "./scenes/Game";
 import Pause from "./scenes/Pause";
+import GameOver from "./scenes/GameOver";
 
 const windowWidth = window.innerWidth * window.devicePixelRatio;
 const windowHeight = window.innerHeight * window.devicePixelRatio;
@@ -20,7 +21,7 @@ const config = {
             // debug: true
         }
     },
-    scene: [Preload, Title, Game, Pause]
+    scene: [Preload, Title, Game, Pause, GameOver]
 };
 const game = new Phaser.Game(config);
 

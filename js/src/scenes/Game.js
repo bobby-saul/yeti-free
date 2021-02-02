@@ -77,23 +77,12 @@ class Game extends Phaser.Scene {
     }
 
 	endGame() {
-		// Text
-		this.gameOver = true;
-		var gameOverText = this.add.text(0, 0, 'Game Over', {
-            fontSize: '36px',
-            fill: '#000',
+        this.scene.start('gameover', {
+            music: this.music,
+			sfx: this.sfx,
+			score: this.yeti.score
 		});
-		var x = this.yeti.x - (gameOverText.width / 2);
-		var y = this.yeti.y - (gameOverText.height / 2);
-		gameOverText.x = x;
-		gameOverText.y = y;
-		// Yeti
-		this.yeti.setVelocity(0);
-		this.yeti.anims.play('yeti-front-idle', true);
-		// Skiers
-		this.skiers.getChildren().forEach(skier => {
-            skier.setVelocity(0);
-        });
+		this.scene.stop();
 	}
 
 	update() {

@@ -67,11 +67,11 @@ Version 1.0
         - [ ] footsteps
     - [x] background music
 - [x] add pause menu
-- [ ] add game over menu
-- [ ] refactor code
+- [x] add game over menu
 
 Version 1.1
 - [ ] add touch events for phones
+- [ ] refactor code
 
 Version 1.2
 - [ ] add high score
