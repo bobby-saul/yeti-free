@@ -3,9 +3,9 @@ import Button from '../objects/Button';
 
 const padding = 10;
 
-class GameOver extends Phaser.Scene {
+class NextLevel extends Phaser.Scene {
 	constructor() {
-		super('gameover');
+		super('nextlevel');
 	}
 
 	preload() {
@@ -19,6 +19,8 @@ class GameOver extends Phaser.Scene {
         this.sfx = data.sfx;
         // Score
         this.score = data.score;
+        // Level
+        this.level = data.level ? data.level : 1;
 	}
 
 	create() {
@@ -28,7 +30,7 @@ class GameOver extends Phaser.Scene {
         // Border
         this.add.rectangle(width, height, width, Math.max(height, 250), 0xE8E8E8);
         // Title
-        this.title = this.add.text(width, height - 2 * (36 + padding), "Game Over", {
+        this.title = this.add.text(width, height - 2 * (36 + padding), "End of Level " + this.level, {
             fill: '#495464',
             fontSize: '24px',
         });
@@ -42,26 +44,28 @@ class GameOver extends Phaser.Scene {
         this.title.x = this.title.x - this.title.width / 2;
         this.title.y = this.title.y - this.title.height / 2;
         // Start button
-        var startButton = new Button(this, width, height - padding, "New Game");
+        var startButton = new Button(this, width, height - padding, "Start Level " + (this.level + 1));
         startButton.on('pointerdown', function () {
-            this.startGame();
+            this.startLevel();
         }, this);
-        // Main menu
-        var mainMenuButton = new Button(this, width, height + (36 + padding), "Main Menu");
-        mainMenuButton.on('pointerdown', function () {
-            this.mainMenu();
+        // Quit
+        var quitButton = new Button(this, width, height + (36 + padding), "Quit");
+        quitButton.on('pointerdown', function () {
+            this.quitGame();
         }, this);
     }
 
-    startGame() {
+    startLevel() {
         this.scene.start('game', {
             music: this.music,
             sfx: this.sfx,
+            score: this.score,
+            level: (this.level + 1),
         });
         this.scene.stop();
     }
 
-    mainMenu() {
+    quitGame() {
         this.scene.start('title', {
             music: this.music,
             sfx: this.sfx,
@@ -70,4 +74,4 @@ class GameOver extends Phaser.Scene {
     }
 }
 
-export default GameOver;
+export default NextLevel;

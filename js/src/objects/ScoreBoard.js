@@ -14,7 +14,7 @@ class ScoreBoard {
     update() {
         var x = this.scene.yeti.body.x + (window.innerWidth * window.devicePixelRatio / 2) - this.scoreText.width - widthOffset;
         var y = this.scene.yeti.body.y - (window.innerHeight * window.devicePixelRatio / 2) + this.scoreText.height + heightOffset;
-        this.scoreText.setText('Score: ' + this.scene.yeti.score);
+        this.scoreText.setText('Score: ' + this.scene.score);
         this.scoreText.x = x;
         this.scoreText.y = y;
     }

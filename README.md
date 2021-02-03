@@ -57,8 +57,8 @@ Version 1.0
 - [ ] add levels (1-10) with time limit
     - [ ] less skiers
     - [ ] more obstacles
-    - [ ] faster obstacles
-    - [ ] begin modal
+    - [ ] faster skiers
+    - [x] begin modal
 - [ ] add sounds
     - [ ] sound effects
         - [x] roar

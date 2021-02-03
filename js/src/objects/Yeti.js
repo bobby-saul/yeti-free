@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import HealthBar from './HealthBar';
 import ScoreBoard from './ScoreBoard';
 import PauseButton from './PauseButton';
+import Timer from './Timer';
 
 const eatTime = 24;
 const fallTime = 30;
@@ -17,13 +18,14 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 		this.body.offset.y = 26;
 		this.direction = 'front';
 		this.health = 1000;
-		this.score = 0;
 		this.healthBar = new HealthBar(scene);
 		this.scoreboard = new ScoreBoard(scene);
 		this.pauseButton = new PauseButton(scene);
+		this.timer = new Timer(scene);
 		this.eatWait = 0;
 		this.fallWait = 0;
 		this.immuneWait = 0;
+		this.starveRate = 0.75;
 	}
 	
 	fall(object) {
@@ -62,7 +64,7 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 			}
 			this.body.width = 28;
 			skier.destroy();
-			this.score += 100;
+			this.scene.score += 100;
 			this.health = Math.min((this.health + 100), 1000);
 			if (this.scene.sfx.on) {
 				this.scene.sfx.chewSound.play();
@@ -74,7 +76,7 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 		if (this.health < 1) {
 			this.scene.endGame();
 		} else {
-			this.health = this.health - 0.5;
+			this.health = this.health - this.starveRate;
 		}
 		this.healthBar.update();
 	}
@@ -162,6 +164,7 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 		this.updateHealth();
 		this.scoreboard.update();
 		this.pauseButton.update();
+		this.timer.update();
 	}
 }
 

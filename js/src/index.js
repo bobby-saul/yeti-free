@@ -4,6 +4,7 @@ import Title from "./scenes/Title";
 import Game from "./scenes/Game";
 import Pause from "./scenes/Pause";
 import GameOver from "./scenes/GameOver";
+import NextLevel from "./scenes/NextLevel";
 
 const windowWidth = window.innerWidth * window.devicePixelRatio;
 const windowHeight = window.innerHeight * window.devicePixelRatio;
@@ -21,7 +22,7 @@ const config = {
             // debug: true
         }
     },
-    scene: [Preload, Title, Game, Pause, GameOver]
+    scene: [Preload, Title, Game, Pause, GameOver, NextLevel]
 };
 const game = new Phaser.Game(config);
 

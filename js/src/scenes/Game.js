@@ -17,6 +17,9 @@ class Game extends Phaser.Scene {
 	init(data) {
 		this.music = data.music;
 		this.sfx = data.sfx;
+		this.level = data.level ? data.level : 1;
+		this.score = data.score ? data.score : 0;
+		this.levelTime = 1000 * 30;
 	}
 
 	preload() {
@@ -54,6 +57,8 @@ class Game extends Phaser.Scene {
 		this.physics.add.collider(this.yeti, boundaries, this.yetiFall, null, this);
 		this.physics.add.collider(this.skiers, this.groundObjects, this.skierCollision, null, this);
 		this.physics.add.collider(this.skiers, this.skiers);
+		// Timer
+		this.timer = this.time.delayedCall(this.levelTime, this.endLevel, [], this);
 	}
 
 	yetiFall(yeti, object) {
@@ -74,13 +79,23 @@ class Game extends Phaser.Scene {
             music: this.music,
             sfx: this.sfx
         });
-    }
+	}
+	
+	endLevel() {
+		this.scene.start('nextlevel', {
+			music: this.music,
+			sfx: this.sfx,
+			score: this.score,
+			level: this.level,
+		});
+		this.scene.stop();	
+	}
 
 	endGame() {
         this.scene.start('gameover', {
             music: this.music,
 			sfx: this.sfx,
-			score: this.yeti.score
+			score: this.score
 		});
 		this.scene.stop();
 	}
