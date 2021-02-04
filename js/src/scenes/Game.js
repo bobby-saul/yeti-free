@@ -7,6 +7,7 @@ import Yeti from '../objects/Yeti';
 import SkierGroup from '../objects/SkierGroup';
 
 const gameSize = [2000, 2000];
+const maxLevel = 10;
 
 class Game extends Phaser.Scene {
 	constructor() {
@@ -19,7 +20,7 @@ class Game extends Phaser.Scene {
 		this.sfx = data.sfx;
 		this.level = data.level ? data.level : 1;
 		this.score = data.score ? data.score : 0;
-		this.levelTime = 1000 * 30;
+		this.levelTime = 1000 * 45;
 	}
 
 	preload() {
@@ -50,7 +51,7 @@ class Game extends Phaser.Scene {
 		const boundaries = new Boundaries(this.physics.world, this);
 		// Skiers
 		skierAnims(this.anims);
-		this.skiers = new SkierGroup(this.physics.world, this, 5);
+		this.skiers = new SkierGroup(this.physics.world, this);
 		// Collisions
 		this.physics.add.collider(this.yeti, this.skiers, this.eatSkier, null, this);
 		this.physics.add.collider(this.yeti, this.groundObjects, this.yetiFall, null, this);
@@ -82,6 +83,10 @@ class Game extends Phaser.Scene {
 	}
 	
 	endLevel() {
+		if (this.level + 1 > maxLevel) {
+			this.endGame();
+			return;	
+		}
 		this.scene.start('nextlevel', {
 			music: this.music,
 			sfx: this.sfx,

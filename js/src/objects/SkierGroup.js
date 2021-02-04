@@ -2,13 +2,18 @@ import Phaser from 'phaser';
 import Skier from './Skier';
 
 const maxInterval = 100;
+const baseWidth = 1200;
+const constant = 6.5;
+const coefficient = -0.5;
 
 class SkierGroup extends Phaser.Physics.Arcade.Group {
-    constructor (world, scene, maxSkiers) {
-        super(world, scene, {maxSize: maxSkiers});
+    constructor (world, scene) {
+        super(world, scene);
         // Add initial skier
         this.add(new Skier(scene));
         // Custom use
+        let density = window.innerWidth / baseWidth;
+        this.maxSize = Math.ceil(density * (coefficient * this.scene.level + constant));
         this.interval = Phaser.Math.Between(0, maxInterval);
     }
 

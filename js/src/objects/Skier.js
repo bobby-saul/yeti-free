@@ -2,12 +2,13 @@ import Phaser from 'phaser';
 
 const minInterval = 10;
 const maxInterval = 100;
-const minSpeed  = 50;
-const maxSpeed  = 200;
 const skierTypes = [
     'skier1',
     'skier2',
 ];
+const constant = 38;
+const coefficient = 12;
+const range = 1.5;
 
 class Skier extends Phaser.Physics.Arcade.Sprite {
     constructor(scene) {
@@ -29,8 +30,10 @@ class Skier extends Phaser.Physics.Arcade.Sprite {
         this.body.offset.y = 20;
         this.setDepth(this.body.y - 12);
         // Custom use
+        this.minSpeed = coefficient * this.scene.level + constant;
+        this.maxSpeed = this.minSpeed * range;
         this.skierType = skierType;
-        this.speed = Phaser.Math.Between(minSpeed, maxSpeed);
+        this.speed = Phaser.Math.Between(this.minSpeed, this.maxSpeed);
         this.speedInterval = Phaser.Math.Between(minInterval, maxInterval);
         this.direction = Phaser.Math.Between(-1, 1);
         this.directionInterval = Phaser.Math.Between(minInterval, maxInterval);
@@ -93,7 +96,7 @@ class Skier extends Phaser.Physics.Arcade.Sprite {
         }
         // Change speed
         if (this.speedInterval < 1) {
-            this.speed = Phaser.Math.Between(minSpeed, maxSpeed);
+            this.speed = Phaser.Math.Between(this.minSpeed, this.maxSpeed);
             this.speedInterval = Phaser.Math.Between(minInterval, maxInterval);
             this.updateDisplay();
         } else {

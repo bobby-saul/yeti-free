@@ -1,7 +1,5 @@
 import Phaser from 'phaser'
 
-const maxObjectDensity = 0.00005;
-const minObjectDensity = 0.000005;
 const objectTypes = [
 	'rock1',
 	'rock2',
@@ -9,14 +7,14 @@ const objectTypes = [
 	'tree',
 	'snowman',
 ];
+const constant = 15 / 1000000;
+const coefficient = 5 / 1000000;
 
 class GroundGroup extends Phaser.Physics.Arcade.Group {
     constructor(world, scene) {
         super(world, scene, { "immovable": true });
-
-        const minObjects = scene.gameSize[0] * scene.gameSize[1] * minObjectDensity;
-		const maxObjects = scene.gameSize[0] * scene.gameSize[1] * maxObjectDensity - minObjects;
-		const numberOfObjects = Phaser.Math.Between(minObjects, maxObjects);
+		const density = scene.gameSize[0] * scene.gameSize[1];
+		const numberOfObjects = Math.ceil(density * (coefficient * this.scene.level + constant));
 
 		for (let index = 0; index < numberOfObjects; index++) {
 			const x = Phaser.Math.Between((-scene.gameSize[0] / 2), (scene.gameSize[0] / 2));
@@ -33,6 +31,7 @@ class GroundGroup extends Phaser.Physics.Arcade.Group {
 				case 2:
 					obj.body.height = 14;
 					obj.body.offset.y = 10;
+					obj.setDepth(y - 8);
 					break;
 				case 3:
 				case 4:

@@ -31,6 +31,8 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 	fall(object) {
 		if (this.eatWait < 1 && this.fallWait < 1 && this.immuneWait < 1) {
 			this.fallWait = fallTime;
+			this.scene.score = this.scene.score - 10;
+			this.health = this.health - 50;
 			this.setVelocity(0);
 			this.anims.play('yeti-side-fall', true);
 			if (object.x >= this.x) {

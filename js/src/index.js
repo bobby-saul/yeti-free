@@ -12,14 +12,13 @@ const config = {
     type: Phaser.CANVAS,
     title: 'Yeti Free',
     url: 'https://bobby-saul.itch.io/yeti-free',
-    version: '1.0-BETA',
+    version: '1.0',
     width: windowWidth,
     height: windowHeight,
     physics: {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },
-            // debug: true
         }
     },
     scene: [Preload, Title, Game, Pause, GameOver, NextLevel]

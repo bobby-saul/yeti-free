@@ -4,7 +4,7 @@ A browser game built on Phaser.io that resembles SkiFree except instead of the s
 
 ## Game Play
 
-Catch and eat skiers by moving around the mountain slopes to gain points and keep your health up. Avoid harmful objects to lose health. See how many points you can rack up!
+Catch and eat skiers by moving around the mountain slope to gain points and keep your health up. Avoid harmful objects that take your points and health. See how many points you can rack up in the 10 45 second levels!
 
 ## Developer Notes
 
@@ -23,61 +23,3 @@ This project contains the index.html file to load the js built by webpack from t
 - dark green #107F63
 - brown #725E54
 - light blue #B8CFF5
-
-### ToDo
-
-Beta
-- [x] add yeti
-- [x] add yeti movement
-- [x] add background
-- [x] camera follow yeti
-- [x] add obstacles
-    - [x] trees
-    - [x] rocks
-    - [x] ice
-    - [x] snowman
-    - [x] place randomly on map
-- [x] add skiers
-    - [x] make sprite
-    - [x] add object
-    - [x] move randomly
-    - [x] avoid objects
-- [x] add health bar
-- [x] add score
-- [x] add eating animation
-- [x] add slip/trip animation
-
-Beta 2
-- [x] add start game menu
-    - [x] background music box
-    - [x] sound effects box
-    - [x] play button
-
-Version 1.0
-- [ ] add levels (1-10) with time limit
-    - [ ] less skiers
-    - [ ] more obstacles
-    - [ ] faster skiers
-    - [x] begin modal
-- [ ] add sounds
-    - [ ] sound effects
-        - [x] roar
-        - [ ] scream
-        - [x] chewing
-        - [ ] footsteps
-    - [x] background music
-- [x] add pause menu
-- [x] add game over menu
-
-Version 1.1
-- [ ] add touch events for phones
-- [ ] refactor code
-
-Version 1.2
-- [ ] add high score
-
-Version 2.0
-- [ ] Power ups
-    - [ ] rage mode (speed up + invincible)
-    - [ ] double points
-    - [ ] snowball
