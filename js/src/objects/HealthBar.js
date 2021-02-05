@@ -17,8 +17,8 @@ class HealthBar {
     }
     
     update() {
-        var x = this.scene.yeti.body.x + (window.innerWidth * window.devicePixelRatio / 2) - width - widthOffset;
-        var y = this.scene.yeti.body.y - (window.innerHeight * window.devicePixelRatio / 2) + height + heightOffset;
+        var x = this.scene.yeti.body.x + (window.innerWidth / 2) - width - widthOffset;
+        var y = this.scene.yeti.body.y - (window.innerHeight / 2) + height + heightOffset;
         // OutLine
         this.outline.x = x;
         this.outline.y = y;

@@ -6,8 +6,8 @@ import Pause from "./scenes/Pause";
 import GameOver from "./scenes/GameOver";
 import NextLevel from "./scenes/NextLevel";
 
-const windowWidth = window.innerWidth * window.devicePixelRatio;
-const windowHeight = window.innerHeight * window.devicePixelRatio;
+const windowWidth = window.innerWidth;
+const windowHeight = window.innerHeight;
 const config = {
     type: Phaser.CANVAS,
     title: 'Yeti Free',
@@ -26,7 +26,7 @@ const config = {
 const game = new Phaser.Game(config);
 
 window.onresize = function () {
-    const windowWidth = window.innerWidth * window.devicePixelRatio;
-    const windowHeight = window.innerHeight * window.devicePixelRatio;
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
     game.scale.setGameSize(windowWidth, windowHeight);
 }

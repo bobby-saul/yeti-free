@@ -15,7 +15,7 @@ class Timer {
     
     update() {
         var x = this.scene.yeti.body.x;
-        var y = this.scene.yeti.body.y - (window.innerHeight * window.devicePixelRatio / 2) + this.timerText.height;
+        var y = this.scene.yeti.body.y - (window.innerHeight / 2) + this.timerText.height;
         var timeLeft = Math.floor(this.scene.levelTime / 1000) - Math.floor(this.scene.timer.getProgress() * this.scene.levelTime / 1000);
         this.timerText.setText(timeLeft + "s");
         this.timerText.x = x - (this.timerText.width / 2);

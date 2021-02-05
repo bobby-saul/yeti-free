@@ -13,8 +13,8 @@ class PauseButton extends Phaser.GameObjects.Sprite {
     }
     
     update() {
-        var x = this.scene.yeti.body.x + (window.innerWidth * window.devicePixelRatio / 2) - widthOffset;
-        var y = this.scene.yeti.body.y - (window.innerHeight * window.devicePixelRatio / 2) + heightOffset;
+        var x = this.scene.yeti.body.x + (window.innerWidth / 2) - widthOffset;
+        var y = this.scene.yeti.body.y - (window.innerHeight / 2) + heightOffset;
         this.x = x;
         this.y = y;
     }

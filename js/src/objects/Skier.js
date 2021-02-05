@@ -14,10 +14,10 @@ class Skier extends Phaser.Physics.Arcade.Sprite {
     constructor(scene) {
         // Get random starting position
         const startingX = Phaser.Math.Between(
-            Math.max((-scene.gameSize[0] / 2), scene.yeti.body.x - (window.innerWidth * window.devicePixelRatio / 2)),
-            Math.min((scene.gameSize[0] / 2), scene.yeti.body.x + (window.innerWidth * window.devicePixelRatio / 2))
+            Math.max((-scene.gameSize[0] / 2), scene.yeti.body.x - (window.innerWidth / 2)),
+            Math.min((scene.gameSize[0] / 2), scene.yeti.body.x + (window.innerWidth / 2))
         );
-        const startingY = scene.yeti.body.y - (window.innerHeight * window.devicePixelRatio / 2);
+        const startingY = scene.yeti.body.y - (window.innerHeight / 2);
 
         // Add to scene
         const skierType = Phaser.Math.Between(0, skierTypes.length - 1);
@@ -90,7 +90,7 @@ class Skier extends Phaser.Physics.Arcade.Sprite {
     
     update() {
         // If skier off screen
-        if (this.body.y > this.scene.yeti.body.y + (window.innerHeight * window.devicePixelRatio / 2) + this.body.height) {
+        if (this.body.y > this.scene.yeti.body.y + (window.innerHeight / 2) + this.body.height) {
             this.destroy();
             return;
         }

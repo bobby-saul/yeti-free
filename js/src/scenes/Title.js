@@ -40,8 +40,8 @@ class Title extends Phaser.Scene {
 
 	create() {
         // Screen
-        const width = window.innerWidth * window.devicePixelRatio / 2;
-        const height = window.innerHeight * window.devicePixelRatio / 2;
+        const width = window.innerWidth / 2;
+        const height = window.innerHeight / 2;
         // Border
         this.add.rectangle(width, height, width, Math.max(height, 250), 0xE8E8E8);
         // Title

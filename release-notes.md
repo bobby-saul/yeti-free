@@ -46,13 +46,16 @@
 ## Future Releases
 
 ### Version 1.1
+- [x] removed devicePixelRatio throughout the game causing bugs
+
+### Version 1.2
 - [ ] add touch events for phones
 - [ ] more sounds
     - [ ] scream
     - [ ] footsteps
 - [ ] refactor code
 
-### Version 1.2
+### Version 1.3
 - [ ] add high score
 
 ### Version 2.0
