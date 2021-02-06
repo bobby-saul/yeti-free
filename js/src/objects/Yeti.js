@@ -176,6 +176,17 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 		if (this.fallWait === 1) {
 			this.immuneWait = immuneTime;
 		}
+		// Stepping sound
+		if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
+			if (this.scene.sfx.steps.isPlaying) {
+				this.scene.sfx.steps.stop();
+			}
+		} else {
+			if (this.scene.sfx.on && !this.scene.sfx.steps.isPlaying) {
+				this.scene.sfx.steps.play();
+			}
+		}
+		// Updates
 		this.updateHealth();
 		this.scoreboard.update();
 		this.pauseButton.update();

@@ -33,7 +33,11 @@ class Title extends Phaser.Scene {
             this.sfx = {
                 on: true,
                 chewSound: this.sound.add('chew'),
-                roarSound: this.sound.add('roar')
+                roarSound: this.sound.add('roar'),
+                steps: this.sound.add('steps', {
+                    volume: 0.25,
+                    loop: true
+                }),
             };
         }
 	}

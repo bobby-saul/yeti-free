@@ -52,7 +52,7 @@
 - [x] add touch events for phones
 - [ ] more sounds
     - [ ] scream
-    - [ ] footsteps
+    - [x] footsteps
 
 ### Version 1.3
 - [ ] add high score
