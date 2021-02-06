@@ -70,6 +70,9 @@ class Game extends Phaser.Scene {
 	}
 
 	eatSkier(yeti, skier) {
+		if (this.sfx.on) {
+			this.sfx.scream.play();
+		}
 		yeti.eat(skier);
 	}
 

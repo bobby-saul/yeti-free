@@ -50,6 +50,7 @@ class Preload extends Phaser.Scene {
 		this.load.audio('chew', 'sound/chew.mp3');
 		this.load.audio('roar', 'sound/roar.mp3');
 		this.load.audio('steps', 'sound/steps.mp3');
+		this.load.audio('scream', 'sound/scream.mp3');
 	}
 
 	create() {

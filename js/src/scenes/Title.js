@@ -34,6 +34,7 @@ class Title extends Phaser.Scene {
                 on: true,
                 chewSound: this.sound.add('chew'),
                 roarSound: this.sound.add('roar'),
+                scream: this.sound.add('scream'),
                 steps: this.sound.add('steps', {
                     volume: 0.25,
                     loop: true
