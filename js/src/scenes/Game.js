@@ -61,6 +61,8 @@ class Game extends Phaser.Scene {
 		this.physics.add.collider(this.skiers, this.skiers);
 		// Timer
 		this.timer = this.time.delayedCall(this.levelTime, this.endLevel, [], this);
+		// Pause
+		this.input.keyboard.on('keydown-P', this.pauseGame, this);
 	}
 
 	yetiFall(yeti, object) {
