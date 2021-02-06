@@ -45,44 +45,70 @@ class Title extends Phaser.Scene {
 
 	create() {
         // Screen
-        const width = window.innerWidth / 2;
-        const height = window.innerHeight / 2;
+        this.width = window.innerWidth / 2;
+        this.height = window.innerHeight / 2;
         // Border
-        this.add.rectangle(width, height, width, Math.max(height, 250), 0xE8E8E8);
+        this.border = this.add.rectangle(this.width, this.height, this.width, Math.max(this.height, 250), 0xE8E8E8);
         // Title
-        this.title = this.add.text(width, height - 2 * (36 + padding), "Yeti Free", {
+        this.title = this.add.text(this.width, this.height - 2 * (36 + padding), "Yeti Free", {
             fill: '#495464',
             fontSize: '24px',
         });
         this.title.x = this.title.x - this.title.width / 2;
         this.title.y = this.title.y - this.title.height / 2;
         // Start button
-        var startButton = new Button(this, width, height - (36 + padding), "Start");
-        startButton.on('pointerdown', function () {
+        this.startButton = new Button(this, this.width, this.height - (36 + padding), "Start");
+        this.startButton.on('pointerdown', function () {
             this.startGame();
         }, this);
         // Music checkbox
-        var musicText = this.add.text(0, 0, 'Music', {
+        this.musicText = this.add.text(0, 0, 'Music', {
             fill: '#495464',
         });
-        musicText.x = width - musicText.width;
-        musicText.y = height - (musicText.height / 2);
-        this.musicButton = new Button(this, width + 16, height);
+        this.musicText.x = this.width - this.musicText.width;
+        this.musicText.y = this.height - (this.musicText.height / 2);
+        this.musicButton = new Button(this, this.width + 16, this.height);
         this.musicButton.on('pointerdown', this.musicToggle, this);
         if (this.music.on) {
             this.musicButton.check();
         }
         // Sound checkbox
-        var sfxText = this.add.text(0, 0, 'Sound', {
+        this.sfxText = this.add.text(0, 0, 'Sound', {
             fill: '#495464',
         });
-        sfxText.x = width - sfxText.width;
-        sfxText.y = height - (sfxText.height / 2) + (16 + padding);
-        this.sfxButton = new Button(this, width  + 16, height + (16 + padding));
+        this.sfxText.x = this.width - this.sfxText.width;
+        this.sfxText.y = this.height - (this.sfxText.height / 2) + (16 + padding);
+        this.sfxButton = new Button(this, this.width  + 16, this.height + (16 + padding));
         this.sfxButton.on('pointerdown', this.sfxToggle, this);
         if (this.sfx.on) {
             this.sfxButton.check();
         }
+        this.game.eventEmitter.on('resize', this.resize, this);
+    }
+
+    resize() {
+        // Screen
+        this.width = window.innerWidth / 2;
+        this.height = window.innerHeight / 2;
+        // Border
+        this.border.destroy();
+        this.border = this.add.rectangle(this.width, this.height, this.width, Math.max(this.height, 250), 0xE8E8E8);
+        this.border.setDepth(-1);
+        // Title
+        this.title.x = this.width - this.title.width / 2;
+        this.title.y = this.height - 2 * (36 + padding) - this.title.height / 2;
+        // Start button
+        this.startButton.move(this.width, this.height - (36 + padding));
+        // Music checkbox
+        this.musicText.x = this.width - this.musicText.width;
+        this.musicText.y = this.height - (this.musicText.height / 2);
+        this.musicButton.x = this.width + 16;
+        this.musicButton.y = this.height;
+        // Sound checkbox
+        this.sfxText.x = this.width - this.sfxText.width;
+        this.sfxText.y = this.height - (this.sfxText.height / 2) + (16 + padding);
+        this.sfxButton.x = this.width  + 16;
+        this.sfxButton.y = this.height + 16 + padding;
     }
     
     musicToggle() {

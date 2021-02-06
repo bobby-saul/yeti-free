@@ -25,34 +25,56 @@ class NextLevel extends Phaser.Scene {
 
 	create() {
         // Screen
-        const width = window.innerWidth / 2;
-        const height = window.innerHeight / 2;
+        this.width = window.innerWidth / 2;
+        this.height = window.innerHeight / 2;
         // Border
-        this.add.rectangle(width, height, width, Math.max(height, 250), 0xE8E8E8);
+        this.border = this.add.rectangle(this.width, this.height, this.width, Math.max(this.height, 250), 0xE8E8E8);
         // Title
-        this.title = this.add.text(width, height - 2 * (36 + padding), "End of Level " + this.level, {
+        this.title = this.add.text(this.width, this.height - 2 * (36 + padding), "End of Level " + this.level, {
             fill: '#495464',
             fontSize: '24px',
         });
         this.title.x = this.title.x - this.title.width / 2;
         this.title.y = this.title.y - this.title.height / 2;
         // Score
-        this.title = this.add.text(width, height - (46 + padding), "Score: " + this.score, {
+        this.scoreText = this.add.text(this.width, this.height - (46 + padding), "Score: " + this.score, {
             fill: '#495464',
             fontSize: '16px',
         });
-        this.title.x = this.title.x - this.title.width / 2;
-        this.title.y = this.title.y - this.title.height / 2;
+        this.scoreText.x = this.scoreText.x - this.scoreText.width / 2;
+        this.scoreText.y = this.scoreText.y - this.scoreText.height / 2;
         // Start button
-        var startButton = new Button(this, width, height - padding, "Start Level " + (this.level + 1));
-        startButton.on('pointerdown', function () {
+        this.startButton = new Button(this, this.width, this.height - padding, "Start Level " + (this.level + 1));
+        this.startButton.on('pointerdown', function () {
             this.startLevel();
         }, this);
         // Quit
-        var quitButton = new Button(this, width, height + (36 + padding), "Quit");
-        quitButton.on('pointerdown', function () {
+        this.quitButton = new Button(this, this.width, this.height + (36 + padding), "Quit");
+        this.quitButton.on('pointerdown', function () {
             this.quitGame();
         }, this);
+        // Resize
+        this.game.eventEmitter.on('resize', this.resize, this);
+    }
+
+    resize() {
+        // Screen
+        this.width = window.innerWidth / 2;
+        this.height = window.innerHeight / 2;
+        // Border
+        this.border.destroy();
+        this.border = this.add.rectangle(this.width, this.height, this.width, Math.max(this.height, 250), 0xE8E8E8);
+        this.border.setDepth(-1);
+        // Title
+        this.title.x = this.width - this.title.width / 2;
+        this.title.y = this.height - 2 * (36 + padding) - this.title.height / 2;
+        // Score
+        this.scoreText.x = this.width - this.scoreText.width / 2;
+        this.scoreText.y = this.height - (46 + padding) - this.scoreText.height / 2;
+        // Start button
+        this.startButton.move(this.width, this.height - padding);
+        // Quit
+        this.quitButton.move(this.width, this.height + (36 + padding));
     }
 
     startLevel() {

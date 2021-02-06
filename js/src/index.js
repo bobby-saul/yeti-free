@@ -12,7 +12,7 @@ const config = {
     type: Phaser.CANVAS,
     title: 'Yeti Free',
     url: 'https://bobby-saul.itch.io/yeti-free',
-    version: '1.0',
+    version: '1.2',
     width: windowWidth,
     height: windowHeight,
     physics: {
@@ -24,9 +24,9 @@ const config = {
     scene: [Preload, Title, Game, Pause, GameOver, NextLevel]
 };
 const game = new Phaser.Game(config);
+game.eventEmitter = new Phaser.Events.EventEmitter();
 
 window.onresize = function () {
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-    game.scale.setGameSize(windowWidth, windowHeight);
+    game.scale.setGameSize(window.innerWidth, window.innerHeight);
+    game.eventEmitter.emit('resize');
 }

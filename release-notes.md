@@ -50,8 +50,8 @@
 
 ### Version 1.2
 - [x] add touch events for phones
-- [ ] more sounds
-    - [ ] scream
+- [x] more sounds
+    - [x] scream
     - [x] footsteps
 
 ### Version 1.3

@@ -15,6 +15,12 @@ class SkierGroup extends Phaser.Physics.Arcade.Group {
         let density = window.innerWidth / baseWidth;
         this.maxSize = Math.ceil(density * (coefficient * this.scene.level + constant));
         this.interval = Phaser.Math.Between(0, maxInterval);
+        this.scene.game.eventEmitter.on('resize', this.resize, this);
+    }
+
+    resize() {
+        let density = window.innerWidth / baseWidth;
+        this.maxSize = Math.ceil(density * (coefficient * this.scene.level + constant));   
     }
 
     update() {

@@ -81,6 +81,9 @@ class Game extends Phaser.Scene {
 	}
 
 	pauseGame() {
+		if (this.sfx.steps.isPlaying) {
+			this.sfx.steps.stop();
+		}
         this.scene.pause();
         this.scene.launch('pause', {
             music: this.music,
@@ -89,6 +92,9 @@ class Game extends Phaser.Scene {
 	}
 	
 	endLevel() {
+		if (this.sfx.steps.isPlaying) {
+			this.sfx.steps.stop();
+		}
 		if (this.level + 1 > maxLevel) {
 			this.endGame();
 			return;	
@@ -103,6 +109,9 @@ class Game extends Phaser.Scene {
 	}
 
 	endGame() {
+		if (this.sfx.steps.isPlaying) {
+			this.sfx.steps.stop();
+		}
         this.scene.start('gameover', {
             music: this.music,
 			sfx: this.sfx,
