@@ -7,6 +7,7 @@ import Timer from './Timer';
 const eatTime = 24;
 const fallTime = 30;
 const immuneTime = 12;
+const yetiPadding = 50;
 
 class Yeti extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
@@ -90,10 +91,22 @@ class Yeti extends Phaser.Physics.Arcade.Sprite {
 			this.eatWait = this.eatWait - 1;
 		} else {
 			let speed = 160;
-			const leftDown = cursors.left.isDown || cursors.a.isDown;
-			const rightDown = cursors.right.isDown || cursors.d.isDown;
-			const upDown = cursors.up.isDown || cursors.w.isDown;
-			const downDown = cursors.down.isDown || cursors.s.isDown;
+			let leftDown = cursors.left.isDown || cursors.a.isDown;
+			let rightDown = cursors.right.isDown || cursors.d.isDown;
+			let upDown = cursors.up.isDown || cursors.w.isDown;
+			let downDown = cursors.down.isDown || cursors.s.isDown;
+			if (this.scene.pointer.isDown) {
+				if (this.scene.pointer.worldX > this.body.x + yetiPadding) {
+					rightDown = true;
+				} else if (this.scene.pointer.worldX < this.body.x - yetiPadding) {
+					leftDown = true;
+				}
+				if (this.scene.pointer.worldY > this.body.y + yetiPadding) {
+					downDown = true;
+				} else if (this.scene.pointer.worldY < this.body.y - yetiPadding) {
+					upDown = true;
+				}
+			}
 
 			if (leftDown) {
 				this.direction = 'side';

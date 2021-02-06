@@ -24,6 +24,7 @@ class Game extends Phaser.Scene {
 	}
 
 	preload() {
+		this.pointer = this.input.activePointer;
 		this.cursors = this.input.keyboard.addKeys({
 			'up': Phaser.Input.Keyboard.KeyCodes.UP,
 			'left': Phaser.Input.Keyboard.KeyCodes.LEFT,
