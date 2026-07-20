@@ -7,7 +7,6 @@
   - [ ] Packages updates
   - [ ] Prettier
   - [ ] eslint
-  - [ ] typescript
 - [ ] Mobile app conversion
 - [ ] Game features
   - [ ] Forever level
